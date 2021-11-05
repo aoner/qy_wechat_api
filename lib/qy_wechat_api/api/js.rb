@@ -13,7 +13,7 @@ module QyWechatApi
         }
       end
       
-      def js_sign_package(url)
+      def yy_sign_package(url)
         timestamp = Time.now.to_i
         noncestr  = SecureRandom.hex(16)
         str = "jsapi_ticket=#{get_js_ticket}&noncestr=#{noncestr}&timestamp=#{timestamp}&url=#{url}";
@@ -44,7 +44,7 @@ module QyWechatApi
       def get_js_ticket
         cache_key = "js_ticket-#{corp_id}"
         QyWechatApi.cache.fetch(cache_key, expires_in: 7100.seconds) do
-          res = http_get("/get_jsapi_ticket", {waive_base_url: true})
+          res = http_get("/ticket/get", {waive_base_url: true})
           ticket = res.result["ticket"]
           if ticket.blank?
             QyWechatApi.cache.delete(cache_key)
