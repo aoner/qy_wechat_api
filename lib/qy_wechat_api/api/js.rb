@@ -40,11 +40,11 @@ module QyWechatApi
         end
       end
       
-      # https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=ACCESS_TOKE
+      # https://qyapi.weixin.qq.com/cgi-bin/ticket/get?access_token=ACCESS_TOKEN&type=agent_config
       def get_js_ticket
         cache_key = "js_ticket-#{corp_id}"
         QyWechatApi.cache.fetch(cache_key, expires_in: 7100.seconds) do
-          res = http_get("/ticket/get", {waive_base_url: true})
+          res = http_get("/ticket/get", {type: 'agent_config', waive_base_url: true})
           ticket = res.result["ticket"]
           if ticket.blank?
             QyWechatApi.cache.delete(cache_key)
