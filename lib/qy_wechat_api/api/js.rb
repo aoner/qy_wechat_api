@@ -44,7 +44,7 @@ module QyWechatApi
       def get_js_ticket
         cache_key = "js_ticket-#{corp_id}"
         QyWechatApi.cache.fetch(cache_key, expires_in: 7100.seconds) do
-          res = http_get("/ticket/get", {type: 'agent_config'})
+          res = http_get("/ticket/get", {type: "agent_config"})
           ticket = res.result["ticket"]
           if ticket.blank?
             QyWechatApi.cache.delete(cache_key)
